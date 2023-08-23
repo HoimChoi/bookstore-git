@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div>
+        <h2>도서 등록</h2>
+        <table class="table table-sm table-bordered">
+    <form action="blist">
+    <select name="searchtype" id="searchtype">
+        <option value="title" checked>도서명</option>
+        <option value="writer">저자명</option>
+        <option value="publisher">출판사명</option>
+    </select>
+    <input type="text" size="20" name="searchword" id="searchword">
+    <button onclick="">검  색</button>
+    <tr>
+    <th>도서 제목</th>
+    <td><input type="text" size="40" maxlength="120" name="title" id="title" placeholder="도서명 입력" required></td>
+    </tr>
+    <tr>
+    <th>저자</th>
+    <td><input type="text" size="40" maxlength="120" name="writer" id="writer" placeholder="저자명 입력" ></td>
+    </tr>
+    <tr>
+    <th>출판사</th>
+    <td><input type="text" size="40" maxlength="120" name="publisher" id="publisher" placeholder="저자명 입력" ></td>
+    </tr>
+    <tr>  
+    <th>가격</th>
+    <td><input type="text" size="40" maxlength="120" name="price" id="price" placeholder="가격 입력" ></td>
+    </tr>
+    <tr>
+    <th>도서 내용</th>
+    <td><textarea name="content" id="content" cols="116" rows="10" maxlength="20">
+    </tr>
+    <button type="submit" class="btn btn-success">Success</button>
+    <button type="reset" class="btn btn-secondary">Secondary</button>
+    </div>
+</table>
+   </form>
+   </body>
+   </html>
