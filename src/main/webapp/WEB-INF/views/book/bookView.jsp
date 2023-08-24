@@ -114,7 +114,7 @@
 		</td>
 		<td>
 			평가글 남기기 : <input type="text" maxlength="100" id="cmt" name="cmt" size="50" required="required">
-			<button type="button" onclick="saveStar()">저장하기</button>		
+			<button type="button" onclick="saveStar()"  class="btn btn-secondary">저장하기</button>		
 			</td>
 	</tr>
 </table>
@@ -123,11 +123,11 @@
 	<!-- 별점 저장 끝 -->
 	<br>
 	<div class="btn_rud">
-		<button type="button" id="btnList" onclick="location.href='bList?page=${page}&searchword=${searchword}&searchtype=${searchtype}'" class="btn btn-success" >도서목록</button>
+		<button type="button" id="btnList" onclick="location.href='book?cmd=list&page=${page}&searchword=${searchword}&searchtype=${searchtype}'" class="btn btn-success" >도서목록</button>
 		<c:if test="${sessionScope.mvo.grade=='a'}">
 			<button type="button" id="btnEdit" onclick="bookEdit()" class="btn btn-warning" >도서수정</button>
 	 		<button type="button" id="btnDelete" onclick="bookDelete()" class="btn btn-danger" >도서삭제</button> 
-	 		<button type="submit" id="btnSave" class="btn btn-primary" style="display:none;">도서저장</button> 
+	 		<button type="submit" id="btnSave" onclick="bookSave()" class="btn btn-primary" style="display:none;">도서저장</button> 
 	 		<button type="reset" id="btnCancle" onclick="bookCancle()" class="btn btn-info" style="display:none;">수정취소</button>
  		</c:if> 
     </div>
@@ -144,7 +144,7 @@
 * ready fun 호출
 *=============================================*/
 $(document).ready(function(){
-	$("#page").val(0);//새로고침 document를 refresh 다음다음(X)
+	$("#page").val(0);
 	getStar();
 });
 
@@ -169,7 +169,7 @@ function newStar(){
 *	- 받아오는 데이터 : json(더보기 버튼 활성화 여부,출력할 데이터(배열))	
 *=============================================*/
 function getStar(){
-		let url="scoreListAjax";
+		let url="book?cmd=slist";
 		let param={"bno":$("#bno").val(),
 				   "page":$("#page").val()*1+1
 				   };
@@ -221,7 +221,7 @@ function saveStar(){
 		alert("평가글을 입력하세요");
 		$("#cmt").focus();
 	}
-	let url="scoreSaveAjax";//서블릿 매핑 주소
+	let url="book?cmd=ssave";//서블릿 매핑 주소
 	let param={"id":"${sessionScope.mvo.id}",
 			   "bno":document.getElementById("bno").value,
 			   "score":$("#score").val(),
@@ -253,12 +253,13 @@ function saveStarAfter(data){
 	// 테이블에 현재 보여주는 별목록 제거
 	$("#tbl_star").html("");
 	$("#page").val(0);
+
 	getStar();
 	// 페이지의 등록된 값 초기화
 	//$("#score").rating("reset");
 	$("#score").rating("destroy");
 	$("#score").val(0);
-	//$("#score").rating("create");
+	$("#score").rating("create");
 	
 	$("#cmt").val("");
 	$("#cmt").focus();
@@ -288,14 +289,14 @@ function saveStarAfter(data){
 	//도서 삭제
 	function bookDelete(){
 		if(confirm("도서삭제를 수행 하시겠습니까?")){
-			location.href="bDelete?bno=${vo.bno}";
+			location.href="book?cmd=del&bno=${vo.bno}";
 		}
 	}
 	//도서저장
-	//function bookSave(){
-		//document.querySelector("#uploadForm") 폼태그의 요소가져오기 
-	//	document.querySelector("#uploadForm").submit();
-	//}
+	function bookSave(){
+		//document.querySelector("#uploadForm")// 폼태그의 요소가져오기 
+		document.querySelector("#uploadForm").submit();
+	}
 	function bookCancle(){
 		$(".disp").css("display","block");
 		$(".edit").css("display","none");
